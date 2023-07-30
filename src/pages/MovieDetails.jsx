@@ -1,12 +1,16 @@
-import { Link, Outlet, useParams} from "react-router-dom";
+import { Link, Outlet, useLocation, useParams} from "react-router-dom";
 import { useCallback, useState } from "react";
 import MovieDetailsItem from "components/MovieDetailsItem/MovieDetailsItem";
 import { movieDetails } from "api/movies";
 import { useEffect } from "react";
+import Loader from 'components/Loader';
 
 export const MovieDetails = () => {
   const { movieId } = useParams();
   const [movieInfo, setMovieInfo] = useState(null);
+  const isLoaded = movieInfo !== null;
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/';
 
   const handleMovieDetailes = useCallback(async () => {
     if (movieId === undefined) return;
@@ -21,10 +25,27 @@ export const MovieDetails = () => {
 
     return (
       <div>
-        {movieInfo !== null  && <MovieDetailsItem details={movieInfo}/>}
-        <Link to="cast">Cast</Link>
-        <Link to="reviews">reviews</Link>
-        <Outlet/>
+        {!isLoaded && <Loader />}
+        {isLoaded && (
+          <div>
+            <Link to={backLinkHref}>Back</Link>
+            <MovieDetailsItem details={movieInfo} />
+          </div>
+        )}
+        {isLoaded && (
+          <div>
+            <p>Additional information</p>
+            <ul>
+              <li>
+                <Link to="cast">Cast</Link>
+              </li>
+              <li>
+                <Link to="reviews">Reviews</Link>
+              </li>
+            </ul>
+          </div>
+        )}
+        <Outlet />
       </div>
     );
 }
