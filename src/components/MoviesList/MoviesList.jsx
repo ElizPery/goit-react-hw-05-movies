@@ -1,8 +1,9 @@
-import MoviesListItem from "components/MoviesListItem/MoviesListItem"
+import MoviesListItem from "components/MoviesListItem/MoviesListItem";
+import { MoviesListStyle } from "./MoviesList.styled";
 
 export default function MoviesList({ movies }) {
     return (
-        <ul>
+        <MoviesListStyle>
             {movies.map(({id, title}) => {
                 return (
                     <MoviesListItem
@@ -12,6 +13,6 @@ export default function MoviesList({ movies }) {
                     />
                 )
             })}
-        </ul>
+        </MoviesListStyle>
     )
 }

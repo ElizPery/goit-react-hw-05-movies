@@ -1,13 +1,14 @@
-import { Link, Outlet } from "react-router-dom";
+import {Outlet } from "react-router-dom";
+import { Navigation, NavigationLink } from "./SharedLayout.styled";
 
 export const SharedLayout = () => {
   return (
     <div>
       <header>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/movies">Movies</Link>
-        </nav>
+        <Navigation>
+          <NavigationLink to="/">Home</NavigationLink>
+          <NavigationLink to="/movies">Movies</NavigationLink>
+        </Navigation>
       </header>
       <Outlet />
     </div>

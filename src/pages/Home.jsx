@@ -2,6 +2,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { popular } from "api/movies";
 import MoviesList from "components/MoviesList/MoviesList";
+import Loader from "components/Loader";
+import { Container } from "components/Container/Container.styled";
+import SectionTitle from "components/SectionTitle/SectionTitle";
 
 export default function Home() {
   const [movies, setMovies] = useState(null);
@@ -21,9 +24,10 @@ export default function Home() {
    }, [handleFetchPopular]);
 
     return (
-      <div>
-        {!isLoaded && <div>Loading...</div>}
+      <Container>
+        {!isLoaded && <Loader />}
+        {isLoaded && <SectionTitle title={'Trending today'} />}
         {isLoaded && <MoviesList movies={movies} />}
-      </div>
+      </Container>
     );
 }
