@@ -1,12 +1,29 @@
 
-import { Link } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { popular } from "api/movies";
+import MoviesList from "components/MoviesList/MoviesList";
 
-export const Home = () => {
+export default function Home() {
+  const [movies, setMovies] = useState(null);
+  const isLoaded = movies !== null;
+
+  const handleFetchPopular = useCallback(async () => {
+    const response = await popular();
+     if (response.length === 0) {
+       return;
+    }
+    
+    setMovies(response);
+  }, [])
+
+   useEffect(() => {
+     handleFetchPopular();
+   }, [handleFetchPopular]);
 
     return (
-        <div>
-        
-        <Link to="movies/:moviesId">Movie</Link>
+      <div>
+        {!isLoaded && <div>Loading...</div>}
+        {isLoaded && <MoviesList movies={movies} />}
       </div>
     );
 }

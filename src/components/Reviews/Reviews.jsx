@@ -1,3 +1,34 @@
+import { useEffect, useState, useCallback } from "react";
+import { useParams } from "react-router-dom";
+import { reviews } from "api/movies";
+
 export const Reviews = () => {
-    return (<div>reviews</div>)
+    const { movieId } = useParams();
+    const [movieReviews, setMovieReviews] = useState(null);
+
+    const handleReviewsData = useCallback(async () => {
+      if (movieId === undefined) return;
+        const response = await reviews(movieId);
+
+      setMovieReviews(response);
+    }, [movieId]);
+
+    useEffect(() => {
+      handleReviewsData();
+    }, [handleReviewsData]);
+
+    return (
+      <ul>
+        {movieReviews !== null &&
+          movieReviews.map(review => {
+            return (
+              <li key={review.id}>
+                <p>{review.author}</p>
+                <p>{review.content}</p>
+              </li>
+            );
+          })}
+        {movieReviews !== null && movieReviews.length === 0 && <li><p>No reviews</p></li>}
+      </ul>
+    );
 }
