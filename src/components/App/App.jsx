@@ -22,7 +22,3 @@ export const App = () => {
     </div>
   );
 };
-
-
-
-// API key b9156ae71cf003d512863748b1da91bf

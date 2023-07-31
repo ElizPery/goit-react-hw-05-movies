@@ -5,6 +5,8 @@ const movieData = axios.create({
     params: { api_key: 'b9156ae71cf003d512863748b1da91bf' }
 });
 
+const defaultImg = 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
+
 const popular = async () => {
   const response = await movieData
     .get('trending/movie/week')
@@ -36,8 +38,10 @@ const movieDetails = async (id) => {
       vote: data.vote_average,
       overview: data.overview,
       genres: data.genres,
-      
+      poster: data.poster_path ? `https://image.tmdb.org/t/p/w300${data.poster_path}` : defaultImg,
     }));
+  
+  // console.log(`https://image.tmdb.org/t/p/w500${response.poster_path}`)
   
   return response;
 };
