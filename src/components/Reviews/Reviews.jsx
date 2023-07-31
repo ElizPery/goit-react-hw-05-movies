@@ -38,7 +38,7 @@ const Reviews = () => {
           })}
         {movieReviews !== null && movieReviews.length === 0 && (
           <NoReviewsItem>
-            <NoReviews>Sorry,o reviews found</NoReviews>
+            <NoReviews>Sorry, no reviews found</NoReviews>
           </NoReviewsItem>
         )}
       </ReviewsList>}

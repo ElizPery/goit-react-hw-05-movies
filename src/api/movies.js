@@ -15,6 +15,7 @@ const popular = async () => {
   return response.map((movie) => ({
     title: movie.title,
     id: movie.id,
+    poster: movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : defaultImg,
   }))
 };
 
@@ -26,6 +27,7 @@ const search = async (query) => {
   return response.map((movie) => ({
     title: movie.title,
     id: movie.id,
+    poster: movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : defaultImg,
   }))
 };
 
