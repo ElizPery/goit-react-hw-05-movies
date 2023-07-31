@@ -1,5 +1,5 @@
 import { Outlet, useLocation, useParams} from "react-router-dom";
-import { useCallback, useState } from "react";
+import { Suspense, useCallback, useState } from "react";
 import MovieDetailsItem from "components/MovieDetailsItem";
 import API from "api/movies";
 import { useEffect } from "react";
@@ -53,7 +53,9 @@ export default function MovieDetails (){
             </AddInfoList>
           </IdditionalInfoContainer>
         )}
-        <Outlet />
+        <Suspense fallback={<Loader/>}>
+          <Outlet />
+        </Suspense>
       </Container>
     );
 }

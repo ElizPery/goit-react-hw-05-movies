@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { useParams } from "react-router-dom";
 import API from "api/movies";
 import Loader from "components/Loader/Loader";
-import { NoReviews, NoReviewsItem, ReviewItem, ReviewName, ReviewsContainer, ReviewsList } from "./Reviews.style";
+import { ReviewItem, ReviewName, ReviewsContainer, ReviewsList, NoReviewsItem, NoReviews } from "./Reviews.style";
 
 const Reviews = () => {
     const { movieId } = useParams();
@@ -38,7 +38,7 @@ const Reviews = () => {
           })}
         {movieReviews !== null && movieReviews.length === 0 && (
           <NoReviewsItem>
-            <NoReviews>Sorry, no reviews found</NoReviews>
+            <NoReviews>Sorry,o reviews found</NoReviews>
           </NoReviewsItem>
         )}
       </ReviewsList>}
