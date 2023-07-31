@@ -41,10 +41,14 @@ export default function MovieDetails (){
             <InfoTitle>Additional information</InfoTitle>
             <AddInfoList>
               <AddInfoListItem>
-                <AddInfoLink to="cast">Cast</AddInfoLink>
+                <AddInfoLink to="cast" state={{ from: location.state.from }}>
+                  Cast
+                </AddInfoLink>
               </AddInfoListItem>
               <AddInfoListItem>
-                <AddInfoLink to="reviews">Reviews</AddInfoLink>
+                <AddInfoLink to="reviews" state={{ from: location.state.from }}>
+                  Reviews
+                </AddInfoLink>
               </AddInfoListItem>
             </AddInfoList>
           </IdditionalInfoContainer>

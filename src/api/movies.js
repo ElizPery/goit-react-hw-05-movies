@@ -41,8 +41,6 @@ const movieDetails = async (id) => {
       poster: data.poster_path ? `https://image.tmdb.org/t/p/w300${data.poster_path}` : defaultImg,
     }));
   
-  // console.log(`https://image.tmdb.org/t/p/w500${response.poster_path}`)
-  
   return response;
 };
 
@@ -52,12 +50,11 @@ const credits = async (id) => {
     .get(`movie/${id}/credits`)
     .then(({data}) => data.cast);
   
-  console.log(response)
-  
   return response.map((actor) => ({
     id: actor.id,
     name: actor.name,
     character: actor.character,
+    photo: actor.profile_path ? `https://image.tmdb.org/t/p/w200${actor.profile_path}` : defaultImg,
   }))
 };
 
@@ -65,8 +62,6 @@ const reviews = async (id) => {
   const response = await movieData
     .get(`movie/${id}/reviews`)
     .then(({data}) => data.results);
-  
-  console.log(response)
   
   return response.map((review) => ({
     id: review.id,

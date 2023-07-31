@@ -56,6 +56,7 @@ export const AddInfoList = styled.ul`
 export const AddInfoLink = styled(NavLink)`
   text-decoration: none;
   color: black;
+  padding: 10px 25px;
 
   &.active {
     color: crimson;

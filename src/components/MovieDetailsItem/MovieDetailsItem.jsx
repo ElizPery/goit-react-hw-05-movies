@@ -17,8 +17,12 @@ export default function MovieDetailsItem({details}) {
         <p>User Score: {vote}</p>
         <Overview>Overview</Overview>
         <p>{overview}</p>
-        <Genres>Genres</Genres>
-        <p>{genresMovie}</p>
+        {genres.length !==0 && (
+          <>
+            <Genres>Genres</Genres>
+            <p>{genresMovie}</p>
+          </>
+        )}
       </div>
     </MovieDetailsContainer>
   );
