@@ -1,4 +1,4 @@
-import MoviesListItem from "components/MoviesListItem/MoviesListItem";
+import MoviesListItem from "components/MoviesListItem";
 import { MoviesListStyle } from "./MoviesList.styled";
 
 export default function MoviesList({ movies }) {

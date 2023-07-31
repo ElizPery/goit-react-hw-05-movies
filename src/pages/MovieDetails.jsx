@@ -1,11 +1,11 @@
 import { Link, Outlet, useLocation, useParams} from "react-router-dom";
 import { useCallback, useState } from "react";
-import MovieDetailsItem from "components/MovieDetailsItem/MovieDetailsItem";
-import { API } from "api/movies";
+import MovieDetailsItem from "components/MovieDetailsItem";
+import API from "api/movies";
 import { useEffect } from "react";
 import Loader from 'components/Loader';
 
-export const MovieDetails = () => {
+export default function MovieDetails (){
   const { movieId } = useParams();
   const [movieInfo, setMovieInfo] = useState(null);
   const isLoaded = movieInfo !== null;

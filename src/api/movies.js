@@ -71,4 +71,5 @@ const reviews = async (id) => {
   }))
 };
 
-export const API = {popular, search, movieDetails, credits, reviews}
+const API = { popular, search, movieDetails, credits, reviews };
+export default API;

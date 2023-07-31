@@ -1,10 +1,9 @@
-
 import { useCallback, useEffect, useState } from "react";
-import { API } from "api/movies";
-import MoviesList from "components/MoviesList/MoviesList";
+import API from "api/movies";
+import MoviesList from "components/MoviesList";
 import Loader from "components/Loader";
 import { Container } from "components/Container/Container.styled";
-import SectionTitle from "components/SectionTitle/SectionTitle";
+import SectionTitle from "components/SectionTitle";
 
 export default function Home() {
   const [movies, setMovies] = useState(null);

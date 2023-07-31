@@ -1,11 +1,10 @@
-// import { search } from "api/movies";
-import { API } from "api/movies";
+import API from "api/movies";
 import { useCallback } from "react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import MoviesList from "components/MoviesList/MoviesList";
+import MoviesList from "components/MoviesList";
 
-export function Movies () {
+export default function Movies () {
     const [searchParams, setSearchParams] = useSearchParams();
     const [searchMovies, setSearchMovies] = useState(null);
     const query = searchParams.get('query');

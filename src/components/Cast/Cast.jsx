@@ -1,8 +1,8 @@
-import { API } from "api/movies";
+import API from "api/movies";
 import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 
-export const Cast = () => {
+const Cast = () => {
     const { movieId } = useParams();
     const [movieCast, setMovieCast] = useState(null)
 
@@ -29,3 +29,5 @@ export const Cast = () => {
     }
     </ul>)
 }
+
+export default Cast;
