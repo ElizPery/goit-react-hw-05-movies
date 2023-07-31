@@ -42,6 +42,7 @@ const movieDetails = async (id) => {
       genres: data.genres,
       poster: data.poster_path ? `https://image.tmdb.org/t/p/w300${data.poster_path}` : defaultImg,
     }));
+  console.log(response)
   
   return response;
 };
