@@ -1,8 +1,11 @@
 import API from "api/movies";
 import { useCallback } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import MoviesList from "components/MoviesList";
+import { SearchMovieBtnLabel, SearchMovieButton, SearchMovieForm, SearchMovieInput } from "./Movies.styled";
+import { GrSearch } from 'react-icons/gr';
+import Notiflix from "notiflix";
 
 export default function Movies () {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -11,7 +14,8 @@ export default function Movies () {
     // const isFirstRender = useRef(true);
 
     const handleSearchMovies = useCallback(async (query) => {
-        if (query === null) return;
+      if (query === null) return;
+    
         const response = await API.search(query);
         if (response.length === 0) {
         return;
@@ -32,20 +36,26 @@ export default function Movies () {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        const inputValue = e.target.elements[0].value;
+      const inputValue = e.target.elements[0].value;
 
-        setSearchParams({ query: inputValue });
+    
+      if (inputValue.trim() === '') {
+        return Notiflix.Notify.warning('Please enter your request');
+      }
+
+      setSearchParams({ query: inputValue });
         
     }
 
     return (
       <div>
-        <form onSubmit={onSubmit}>
-          <input type="text" placeholder="Search movies by name" />
-          <button type="submit">
-            <span>Search</span>
-          </button>
-        </form>
+        <SearchMovieForm onSubmit={onSubmit}>
+          <SearchMovieInput type="text" placeholder="Search movies by name" />
+          <SearchMovieButton type="submit">
+            <SearchMovieBtnLabel >Search</SearchMovieBtnLabel>
+            <GrSearch/>
+          </SearchMovieButton>
+        </SearchMovieForm>
         {searchMovies !== null && <MoviesList movies={searchMovies} />}
       </div>
     );

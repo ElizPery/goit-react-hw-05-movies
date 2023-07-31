@@ -24,8 +24,8 @@ export default function Home() {
 
     return (
       <Container>
+        <SectionTitle title={'Trending today'} />
         {!isLoaded && <Loader />}
-        {isLoaded && <SectionTitle title={'Trending today'} />}
         {isLoaded && <MoviesList movies={movies} />}
       </Container>
     );
