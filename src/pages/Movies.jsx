@@ -1,5 +1,5 @@
 // import { search } from "api/movies";
-import { search } from "api/movies";
+import { API } from "api/movies";
 import { useCallback } from "react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -13,7 +13,7 @@ export function Movies () {
 
     const handleSearchMovies = useCallback(async (query) => {
         if (query === null) return;
-        const response = await search(query);
+        const response = await API.search(query);
         if (response.length === 0) {
         return;
         }

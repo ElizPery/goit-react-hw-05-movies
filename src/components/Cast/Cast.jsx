@@ -1,4 +1,4 @@
-import { credits } from "api/movies";
+import { API } from "api/movies";
 import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 
@@ -8,7 +8,7 @@ export const Cast = () => {
 
     const handleCastData = useCallback(async () => {
         if (movieId === undefined) return;
-        const response = await credits(movieId);
+        const response = await API.credits(movieId);
 
         setMovieCast(response);
     }, [movieId]);

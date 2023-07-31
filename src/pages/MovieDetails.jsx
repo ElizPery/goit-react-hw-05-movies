@@ -1,7 +1,7 @@
 import { Link, Outlet, useLocation, useParams} from "react-router-dom";
 import { useCallback, useState } from "react";
 import MovieDetailsItem from "components/MovieDetailsItem/MovieDetailsItem";
-import { movieDetails } from "api/movies";
+import { API } from "api/movies";
 import { useEffect } from "react";
 import Loader from 'components/Loader';
 
@@ -14,7 +14,7 @@ export const MovieDetails = () => {
 
   const handleMovieDetailes = useCallback(async () => {
     if (movieId === undefined) return;
-    const response = await movieDetails(movieId);
+    const response = await API.movieDetails(movieId);
 
     setMovieInfo(response);
   }, [movieId, setMovieInfo]);

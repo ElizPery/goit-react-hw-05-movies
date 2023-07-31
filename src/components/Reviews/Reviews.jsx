@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import { reviews } from "api/movies";
+import { API } from "api/movies";
 
 export const Reviews = () => {
     const { movieId } = useParams();
@@ -8,7 +8,7 @@ export const Reviews = () => {
 
     const handleReviewsData = useCallback(async () => {
       if (movieId === undefined) return;
-        const response = await reviews(movieId);
+        const response = await API.reviews(movieId);
 
       setMovieReviews(response);
     }, [movieId]);

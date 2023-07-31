@@ -1,6 +1,6 @@
 
 import { useCallback, useEffect, useState } from "react";
-import { popular } from "api/movies";
+import { API } from "api/movies";
 import MoviesList from "components/MoviesList/MoviesList";
 import Loader from "components/Loader";
 import { Container } from "components/Container/Container.styled";
@@ -11,7 +11,7 @@ export default function Home() {
   const isLoaded = movies !== null;
 
   const handleFetchPopular = useCallback(async () => {
-    const response = await popular();
+    const response = await API.popular();
      if (response.length === 0) {
        return;
     }

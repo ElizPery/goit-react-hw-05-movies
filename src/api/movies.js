@@ -5,7 +5,7 @@ const movieData = axios.create({
     params: { api_key: 'b9156ae71cf003d512863748b1da91bf' }
 });
 
-export const popular = async () => {
+const popular = async () => {
   const response = await movieData
     .get('trending/movie/week')
     .then(({ data: { results } }) => results);
@@ -16,7 +16,7 @@ export const popular = async () => {
   }))
 };
 
-export const search = async (query) => {
+const search = async (query) => {
   const response = await movieData
     .get('search/movie', { params: {query: query}})
     .then(({ data: { results } }) => results);
@@ -27,7 +27,7 @@ export const search = async (query) => {
   }))
 };
 
-export const movieDetails = async (id) => {
+const movieDetails = async (id) => {
   const response = await movieData
     .get(`movie/${id}`)
     .then(({ data }) => ({
@@ -43,7 +43,7 @@ export const movieDetails = async (id) => {
 };
 
 
-export const credits = async (id) => {
+const credits = async (id) => {
   const response = await movieData
     .get(`movie/${id}/credits`)
     .then(({data}) => data.cast);
@@ -57,7 +57,7 @@ export const credits = async (id) => {
   }))
 };
 
-export const reviews = async (id) => {
+const reviews = async (id) => {
   const response = await movieData
     .get(`movie/${id}/reviews`)
     .then(({data}) => data.results);
@@ -70,3 +70,5 @@ export const reviews = async (id) => {
     content: review.content,
   }))
 };
+
+export const API = {popular, search, movieDetails, credits, reviews}
