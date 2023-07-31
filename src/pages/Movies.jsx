@@ -1,5 +1,5 @@
 import API from "api/movies";
-import { useCallback, useRef } from "react";
+import { useCallback} from "react";
 import { useEffect, useState} from "react";
 import { useSearchParams } from "react-router-dom";
 import MoviesList from "components/MoviesList";
