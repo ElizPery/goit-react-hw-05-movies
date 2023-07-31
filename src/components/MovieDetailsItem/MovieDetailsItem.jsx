@@ -1,19 +1,25 @@
+import { GenreType, Genres, ImgContainer, MovieDetailsContainer, MovieTitle, Overview } from "./MovieDetailsItem.styled";
+
 export default function MovieDetailsItem({details}) {
   if (details === {details: null}) return
   const { title, vote, overview, genres, poster } = details;
   const genresMovie = genres.map((genre) => {
-      return <span key={genre.id}>{genre.name}</span>
+    return <GenreType key={genre.id}>{genre.name} </GenreType>  
   })
 
   return (
-    <div>
-      <img src={poster} alt={title}/>
-      <h1>{title}</h1>
-      <p>User Score: {vote}</p>
-      <h2>Overview</h2>
-      <p>{overview}</p>
-      <h3>Genres</h3>
-      <p>{genresMovie}</p>
-    </div>
+    <MovieDetailsContainer>
+      <ImgContainer>
+        <img src={poster} alt={title} />
+      </ImgContainer>
+      <div>
+        <MovieTitle>{title}</MovieTitle>
+        <p>User Score: {vote}</p>
+        <Overview>Overview</Overview>
+        <p>{overview}</p>
+        <Genres>Genres</Genres>
+        <p>{genresMovie}</p>
+      </div>
+    </MovieDetailsContainer>
   );
 }

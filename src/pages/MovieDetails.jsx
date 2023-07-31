@@ -1,9 +1,11 @@
-import { Link, Outlet, useLocation, useParams} from "react-router-dom";
+import { Outlet, useLocation, useParams} from "react-router-dom";
 import { useCallback, useState } from "react";
 import MovieDetailsItem from "components/MovieDetailsItem";
 import API from "api/movies";
 import { useEffect } from "react";
 import Loader from 'components/Loader';
+import { BackLink, Border, IdditionalInfoContainer, InfoTitle, AddInfoListItem, AddInfoList, AddInfoLink } from "./MovieDetails.styled";
+import { Container } from "components/Container/Container.styled";
 
 export default function MovieDetails (){
   const { movieId } = useParams();
@@ -24,28 +26,30 @@ export default function MovieDetails (){
   }, [handleMovieDetailes])
 
     return (
-      <div>
+      <Container>
         {!isLoaded && <Loader />}
         {isLoaded && (
           <div>
-            <Link to={backLinkHref}>Back</Link>
+            <Border>
+              <BackLink to={backLinkHref}>{'\u21FD'} Back</BackLink>
+            </Border>
             <MovieDetailsItem details={movieInfo} />
           </div>
         )}
         {isLoaded && (
-          <div>
-            <p>Additional information</p>
-            <ul>
-              <li>
-                <Link to="cast">Cast</Link>
-              </li>
-              <li>
-                <Link to="reviews">Reviews</Link>
-              </li>
-            </ul>
-          </div>
+          <IdditionalInfoContainer>
+            <InfoTitle>Additional information</InfoTitle>
+            <AddInfoList>
+              <AddInfoListItem>
+                <AddInfoLink to="cast">Cast</AddInfoLink>
+              </AddInfoListItem>
+              <AddInfoListItem>
+                <AddInfoLink to="reviews">Reviews</AddInfoLink>
+              </AddInfoListItem>
+            </AddInfoList>
+          </IdditionalInfoContainer>
         )}
         <Outlet />
-      </div>
+      </Container>
     );
 }
