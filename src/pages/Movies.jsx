@@ -1,6 +1,6 @@
 import API from "api/movies";
 import { useCallback } from "react";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState} from "react";
 import { useSearchParams } from "react-router-dom";
 import MoviesList from "components/MoviesList";
 import { SearchMovieBtnLabel, SearchMovieButton, SearchMovieForm, SearchMovieInput } from "./Movies.styled";
