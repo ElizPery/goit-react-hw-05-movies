@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
 export const LoaderContainer = styled.div`
-   justify-self: center;
+   justify-content: center;
+   display: flex;
 `;

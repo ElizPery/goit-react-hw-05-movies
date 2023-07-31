@@ -13,19 +13,14 @@ export default function Movies () {
     const [searchMovies, setSearchMovies] = useState(null);
     const query = searchParams.get('query');
     // const isFirstRender = useRef(true);
-    const isLoading = useRef(false);
 
     const handleSearchMovies = useCallback(async (query) => {
       if (query === null) return;
 
-      isLoading.current = true;
-    
       const response = await API.search(query);
       if (response.length === 0) {
       return;
       }
-
-      isLoading.current = false;
 
         setSearchMovies(response);
     }, []);
@@ -62,8 +57,8 @@ export default function Movies () {
             <GrSearch />
           </SearchMovieButton>
         </SearchMovieForm>
-        {isLoading.current && <Loader />}
-        {searchMovies !== null && !isLoading.current && (
+        {query && !searchMovies && <Loader />}
+        {searchMovies !== null && (
           <MoviesList movies={searchMovies} />
         )}
       </div>
