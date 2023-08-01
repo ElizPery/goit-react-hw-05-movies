@@ -12,25 +12,20 @@ export default function Movies () {
     const [searchParams, setSearchParams] = useSearchParams();
     const [searchMovies, setSearchMovies] = useState(null);
     const query = searchParams.get('query');
-    // const isFirstRender = useRef(true);
 
     const handleSearchMovies = useCallback(async (query) => {
       if (query === null) return;
 
       const response = await API.search(query);
       if (response.length === 0) {
-      return;
+        setSearchMovies([]);
+        return Notiflix.Notify.failure(`Nothing found by name ${query}`);
       }
 
         setSearchMovies(response);
     }, []);
 
     useEffect(() => {
-        // if (isFirstRender) {
-        //     isFirstRender.current = false;
-        //     return;
-        // }
-
         handleSearchMovies(query)
     }, [query, handleSearchMovies])
 
