@@ -12,17 +12,27 @@ export default function Movies () {
     const [searchParams, setSearchParams] = useSearchParams();
     const [searchMovies, setSearchMovies] = useState(null);
     const query = searchParams.get('query');
+    const [isError, setIsError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSearchMovies = useCallback(async (query) => {
       if (query === null) return;
 
-      const response = await API.search(query);
-      if (response.length === 0) {
-        setSearchMovies([]);
-        return Notiflix.Notify.failure(`Nothing found by name ${query}`);
-      }
+      setIsLoading(true);
+
+      try {
+        const response = await API.search(query);
+        if (response.length === 0) {
+          setSearchMovies([]);
+          return Notiflix.Notify.failure(`Nothing found by name ${query}`);
+        }
 
         setSearchMovies(response);
+      } catch {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
     }, []);
 
     useEffect(() => {
@@ -40,7 +50,6 @@ export default function Movies () {
       }
 
       setSearchParams({ query: inputValue });
-        
     }
 
     return (
@@ -52,10 +61,12 @@ export default function Movies () {
             <GrSearch />
           </SearchMovieButton>
         </SearchMovieForm>
-        {query && !searchMovies && <Loader />}
-        {searchMovies !== null && (
-          <MoviesList movies={searchMovies} />
-        )}
+        {isLoading && <Loader />}
+        {isError &&
+          Notiflix.Notify.failure(
+            'Something went wrong, please try another query'
+          )}
+        {searchMovies !== null && !isLoading && <MoviesList movies={searchMovies} />}
       </div>
     );
 }

@@ -1,21 +1,30 @@
 import API from "api/movies";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback} from "react";
 import { useParams } from "react-router-dom";
 import { ActorInfo, ActorName, ActorPhoto, CastContainer, CastItem, CastList, NoCast, NoCastItem } from "./Cast.styled";
 import Loader from "components/Loader/Loader";
+import Notiflix from "notiflix";
 
 const Cast = () => {
     const { movieId } = useParams();
     const [movieCast, setMovieCast] = useState(null)
-    const isLoading = useRef(false);
+    
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
     const handleCastData = useCallback(async () => {
-        if (movieId === undefined) return;
-        isLoading.current = true;
-        const response = await API.credits(movieId);
-        isLoading.current = false;
+      if (movieId === undefined) return;
+      
+      setIsLoading(true);
 
+      try {
+        const response = await API.credits(movieId);
         setMovieCast(response);
+      } catch {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
     }, [movieId]);
 
     useEffect(() => {
@@ -24,8 +33,12 @@ const Cast = () => {
 
     return (
       <CastContainer>
-        {isLoading.current && <Loader />}
-        {!isLoading.current && (
+        {isLoading && <Loader />}
+        {isError &&
+          Notiflix.Notify.failure(
+            'Something went wrong, please try another query'
+          )}
+        {!isLoading && (
           <CastList>
             {movieCast !== null &&
               movieCast.map(actor => {

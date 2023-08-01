@@ -1,21 +1,30 @@
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import API from "api/movies";
 import Loader from "components/Loader/Loader";
+import Notiflix from "notiflix";
 import { ReviewItem, ReviewName, ReviewsContainer, ReviewsList, NoReviewsItem, NoReviews } from "./Reviews.style";
 
 const Reviews = () => {
     const { movieId } = useParams();
     const [movieReviews, setMovieReviews] = useState(null);
-    const isLoading = useRef(false);
+    const [isError, setIsError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    
 
     const handleReviewsData = useCallback(async () => {
       if (movieId === undefined) return;
-      isLoading.current = true;
-      const response = await API.reviews(movieId);
-      isLoading.current = false
 
-      setMovieReviews(response);
+      setIsLoading(true);
+
+      try {
+        const response = await API.reviews(movieId);
+        setMovieReviews(response);
+      } catch {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
     }, [movieId]);
 
     useEffect(() => {
@@ -24,24 +33,29 @@ const Reviews = () => {
 
   return (
     <ReviewsContainer>
-      {isLoading.current && <Loader />}
-      {!isLoading.current &&
-        <ReviewsList>
-        {movieReviews !== null &&
-          movieReviews.map(review => {
-            return (
-              <ReviewItem key={review.id}>
-                <ReviewName>{review.author}</ReviewName>
-                <p>{review.content}</p>
-              </ReviewItem>
-            );
-          })}
-        {movieReviews !== null && movieReviews.length === 0 && (
-          <NoReviewsItem>
-            <NoReviews>Sorry, no reviews found</NoReviews>
-          </NoReviewsItem>
+      {isLoading && <Loader />}
+      {isError &&
+        Notiflix.Notify.failure(
+          'Something went wrong, please try another query'
         )}
-      </ReviewsList>}
+      {!isLoading && (
+        <ReviewsList>
+          {movieReviews !== null &&
+            movieReviews.map(review => {
+              return (
+                <ReviewItem key={review.id}>
+                  <ReviewName>{review.author}</ReviewName>
+                  <p>{review.content}</p>
+                </ReviewItem>
+              );
+            })}
+          {movieReviews !== null && movieReviews.length === 0 && (
+            <NoReviewsItem>
+              <NoReviews>Sorry, no reviews found</NoReviews>
+            </NoReviewsItem>
+          )}
+        </ReviewsList>
+      )}
     </ReviewsContainer>
   );
 }

@@ -31,10 +31,15 @@ export default function MovieDetailsItem({details}) {
 
 MovieDetailsItem.propTypes = {
   details: PropTypes.shape({
-      vote: PropTypes.number.isRequired,
-      overview: PropTypes.string.isRequired,
-      poster: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      genres: PropTypes.arrayOf(PropTypes.string).isRequired
-    }).isRequired
+    vote: PropTypes.number.isRequired,
+    overview: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    genres: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ),
+  }).isRequired,
 };
